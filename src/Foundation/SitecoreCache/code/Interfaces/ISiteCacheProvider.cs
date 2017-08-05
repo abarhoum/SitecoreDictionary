@@ -10,5 +10,6 @@ namespace Sitecore.Foundation.SitecoreCache.Interfaces
     {
         void AddCacheObject(string key, object value);
         object GetCacheObject(string key);
+        void ClearCache(object sender, EventArgs args);
     }
 }

@@ -48,6 +48,7 @@
     <Compile Include="Interfaces\IDictionaryProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\DictionaryProvider.cs" />
+    <Compile Include="Templates.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -55,6 +56,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DependencyInjection\code\Sitecore.Foundation.DependencyInjection.csproj">
+      <Project>{2c567bf4-9dde-4a0f-8fc1-4bdcb1afe64b}</Project>
+      <Name>Sitecore.Foundation.DependencyInjection</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Indexing\code\Sitecore.Foundation.Indexing.csproj">
       <Project>{9c526d6e-0625-468c-a27c-f19f249a95e6}</Project>
       <Name>Sitecore.Foundation.Indexing</Name>
@@ -67,6 +72,9 @@
       <Project>{61b11686-0609-40ec-a11c-13e109aa0ba4}</Project>
       <Name>Sitecore.Foundation.SitecoreExtensions</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -53,6 +53,7 @@
     <Compile Include="Templates.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App_Config\Include\Foundation\Foundation.SitecoreCache.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

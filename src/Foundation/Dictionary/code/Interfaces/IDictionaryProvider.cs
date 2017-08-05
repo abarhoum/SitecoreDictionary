@@ -10,6 +10,6 @@ namespace Sitecore.Foundation.Dictionary.Interfaces
     public interface IDictionaryProvider
     {
         Item Get(string key);
-        Item[] GetAll();
+        List<Item> GetAll();
     }
 }
