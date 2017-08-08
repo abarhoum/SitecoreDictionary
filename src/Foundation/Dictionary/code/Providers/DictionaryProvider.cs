@@ -11,6 +11,7 @@ using Sitecore.Foundation.Indexing.Models;
 using Sitecore.Foundation.SitecoreCache;
 using Sitecore.Foundation.Indexing.Interfaces;
 using Sitecore.Foundation.DependencyInjection.Attributes;
+using Sitecore.Links;
 
 namespace Sitecore.Foundation.Dictionary.Providers
 {
@@ -85,7 +86,6 @@ namespace Sitecore.Foundation.Dictionary.Providers
         public List<Item> GetAll()
         {
             List<Item> dictionaries = new List<Item>();
-
             var dictionaryCache = cacheProvider.Get(DictionaryCacheName);
 
             if (dictionaryCache == null)
