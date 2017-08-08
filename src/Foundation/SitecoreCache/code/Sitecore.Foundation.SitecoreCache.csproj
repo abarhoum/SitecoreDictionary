@@ -103,10 +103,11 @@
     <Content Include="App_Config\Include\Foundation\Foundation.SitecoreCache.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="web.config" />
+    <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -116,7 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DependencyInjection\code\Sitecore.Foundation.DependencyInjection.csproj">
-      <Project>{2c567bf4-9dde-4a0f-8fc1-4bdcb1afe64b}</Project>
+      <Project>{fc5b2a8a-1fa6-4f4e-bc19-3735870df132}</Project>
       <Name>Sitecore.Foundation.DependencyInjection</Name>
     </ProjectReference>
   </ItemGroup>
