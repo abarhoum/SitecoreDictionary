@@ -4,6 +4,9 @@
 <h3>Video</h3>
 <a href='https://youtu.be/IOayM46EIAE'>https://youtu.be/IOayM46EIAE</a>
 
+<h3>Sitecore Versions</h3>
+SX P8.2 : It will not work on earlier version as it is using the new Sitecore Custom cache functionality
+
 <h3>Features</h3>
 
 - Built on Helix Principles. 
