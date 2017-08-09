@@ -1,4 +1,9 @@
 # Sitecore Alphabet Dictionary
+
+
+<h3>Video</h3>
+<a href='https://youtu.be/IOayM46EIAE'>https://youtu.be/IOayM46EIAE</a>
+
 <h3>Features</h3>
 
 - Built on Helix Principles. 
