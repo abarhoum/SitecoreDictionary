@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sitecore.Foundation.SitecoreCache
+namespace Sitecore.Foundation.Dictionary
 {
    public class Templates
     {
-        public struct CommonText
+        public struct Dictionary
         {
-            public static ID ID = new ID(Settings.GetSetting("Indivirtual.Sitecore.CommonTextTemplateId"));
+            public static ID ID = new ID(Settings.GetSetting("Sitecore.Foundation.Dictionary.DictionaryTemplateId"));
         }
     }
 }

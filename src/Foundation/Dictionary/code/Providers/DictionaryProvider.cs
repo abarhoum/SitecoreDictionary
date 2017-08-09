@@ -6,97 +6,106 @@ using System.Text;
 using System.Threading.Tasks;
 using Sitecore.Data.Items;
 using Sitecore.Foundation.SitecoreCache.Interfaces;
-using Sitecore.Foundation.SitecoreExtensions.Extensions;
 using Sitecore.Data;
 using Sitecore.Foundation.Indexing.Models;
 using Sitecore.Foundation.SitecoreCache;
 using Sitecore.Foundation.Indexing.Interfaces;
+using Sitecore.Foundation.DependencyInjection.Attributes;
+using Sitecore.Links;
 
 namespace Sitecore.Foundation.Dictionary.Providers
 {
+    [Service(Lifetime = DependencyInjection.Enums.Lifetime.Singleton)]
     public class DictionaryProvider : IDictionaryProvider
     {
+
         private readonly ICacheProvider cacheProvider;
         private readonly ISearchServiceRepository searchServiceRepository;
         private readonly Item siteRootItem;
 
-        private ID CommonTextFolderId
+        private ID DictionaryFolderId
         {
             get
             {
-                var commonTextFolderId = string.Empty;
+                var dictionaryFolderId = string.Empty;
                 if (siteRootItem != null)
                 {
-                    commonTextFolderId = siteRootItem["Common Text Folder"];
+                    dictionaryFolderId = siteRootItem["Dictionary Folder"];
                 }
-                return ID.Parse(commonTextFolderId);
+                return ID.Parse(dictionaryFolderId);
             }
         }
 
-        private string CommonTextCacheKey
+        private string DictionaryCacheKey
         {
             get
             {
-                var commonTextCacheKey = string.Empty;
+                var dictionaryCacheKey = string.Empty;
                 if (siteRootItem != null)
                 {
-                    commonTextCacheKey = siteRootItem["Common Text Cache Key"];
+                    dictionaryCacheKey = siteRootItem["Dictionary Cache Key"];
                 }
-                return commonTextCacheKey;
+
+                return dictionaryCacheKey;
             }
         }
-
-
-
         private string DictionaryCacheName
         {
             get
             {
-                return string.Format("{0}.{1}.{2}", "Sitecore.Foundation.SitecoreCache.DictionaryItems", CommonTextCacheKey, Sitecore.Context.Language.CultureInfo.Name);
+                return string.Format("{0}.{1}.{2}", "Sitecore.Foundation.SitecoreCache.DictionaryItems", DictionaryCacheKey, Sitecore.Context.Language.CultureInfo.Name);
             }
         }
-
         public DictionaryProvider(ICacheProvider cacheProvider, ISearchServiceRepository searchServiceRepository)
         {
-            siteRootItem = Context.Site.GetRootItem();
+            siteRootItem = Context.Site.Database.GetItem(Context.Site.RootPath);
             this.cacheProvider = cacheProvider;
             this.searchServiceRepository = searchServiceRepository;
+
+
         }
         public Item Get(string key)
         {
-            var commonTextItems = GetAll();
+            var dictionaryItems = GetAll();
 
             Item item = null;
 
-            if (commonTextItems != null && commonTextItems.Count() > 0)
+            if (dictionaryItems != null && dictionaryItems.Count() > 0)
             {
-                item = commonTextItems.Where(p => p["Key"] == key)
+                item = dictionaryItems.Where(p => p["Key"] == key)
                                       .FirstOrDefault();
             }
 
             return item;
         }
 
-        public Item[] GetAll()
+        /// <summary>
+        /// Get dictionaries from cache.
+        /// </summary>
+        /// <returns>Dictionary Items</returns>
+        public List<Item> GetAll()
         {
-            var listCommonTexts = cacheProvider.Get(DictionaryCacheName);
+            List<Item> dictionaries = new List<Item>();
+            var dictionaryCache = cacheProvider.Get(DictionaryCacheName);
 
-
-            if (listCommonTexts == null)
+            if (dictionaryCache == null)
             {
-                var dictionaryFolderItem = Sitecore.Context.Database.GetItem(CommonTextFolderId);
+                var dictionaryFolderItem = Sitecore.Context.Database.GetItem(DictionaryFolderId);
                 var searchSettings = new SearchSettings();
-                searchSettings.Templates = new[] { Templates.CommonText.ID };
+                searchSettings.Templates = new[] { Templates.Dictionary.ID };
                 searchSettings.Root = dictionaryFolderItem;
                 var searchService = searchServiceRepository.Get(searchSettings);
 
                 var results = searchService.FindAll();
-                cacheProvider.Set(DictionaryCacheName, listCommonTexts);
-
+                dictionaries = results.Results.Select(x => x.Item).Where(x => x != null).ToList();
+                cacheProvider.Set(DictionaryCacheName, dictionaries);
+            }
+            else
+            {
+                dictionaries = (List<Item>)dictionaryCache;
             }
 
-            var filteredItems = (Item[])listCommonTexts;
-            return filteredItems;
+            return dictionaries;
         }
     }
 }

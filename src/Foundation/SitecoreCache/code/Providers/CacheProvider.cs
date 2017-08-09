@@ -3,9 +3,11 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Foundation.DependencyInjection.Attributes;
 using Sitecore.Foundation.SitecoreCache.Interfaces;
+using System;
+
 namespace Sitecore.Foundation.SitecoreCache.Providers
 {
-    [Service(Lifetime = DependencyInjection.Enums.Lifetime.Singleton)]
+    [Service(typeof(ICacheProvider))]
     public class CacheProvider : ICacheProvider
     {
         private readonly ISiteCacheProvider siteCacheProvider;
@@ -25,6 +27,10 @@ namespace Sitecore.Foundation.SitecoreCache.Providers
         public void Set(string key, object value)
         {
             siteCacheProvider.AddCacheObject(key, value);
+        }
+        public void ClearCache(object sender, EventArgs args)
+        {
+            siteCacheProvider.ClearCache(sender,args);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Sitecore.Foundation.SitecoreCache.Providers
     {
         public SiteCacheProvider(string name, long maxSize) : base(name, maxSize)
         {
-
+          
         }
         public void AddCacheObject(string key, object value)
         {
@@ -22,6 +22,10 @@ namespace Sitecore.Foundation.SitecoreCache.Providers
         {
             if (!InnerCache.ContainsKey(key)) return null;
             return InnerCache.GetValue(key);
+        }
+        public void ClearCache(object sender, EventArgs args)
+        {
+            this.Clear();
         }
     }
 }
