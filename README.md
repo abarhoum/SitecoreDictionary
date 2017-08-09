@@ -5,7 +5,7 @@
 <a href='https://youtu.be/IOayM46EIAE'>https://youtu.be/IOayM46EIAE</a>
 
 <h3>Sitecore Versions</h3>
-SX P8.2 :  It will not work on earlier Sitecore versions as it is using the new Sitecore Custom cache functionality 
+SX P8.2 :  Supports Sitecore 8.2 only, It will not work on earlier Sitecore versions as it is using the new Sitecore Custom cache functionality.
 
 <h3>Features</h3>
 
